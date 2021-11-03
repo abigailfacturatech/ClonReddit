@@ -2,29 +2,16 @@
 
 use App\Http\Controllers\PostsController;
 
-Route::get('/posts', [PostsController::class, 'index']);
+    Route::name('posts_path')->get('/posts', [PostsController::class, 'index']);
 
+    Route::name('create_post_path')->get('/posts/{create}', [PostsController::class, 'create']);
 
-Route::get('/posts/{id}', [PostsController::class, 'show']);
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::name('store_post_path')->post('/posts', [PostsController::class, 'store']);
 
-//hacer una ruta con variable $nombre 
-Route::get('/hola/{nombre}', [HolaController::class, 'hola']); 
+    Route::name('post_path')->get('/posts/{post}', [PostsController::class, 'show']);
 
-//demostracion de variabres con if
-Route::get('/', function()
-{
+    Route::name('edit_post_path')->get('/posts/{post}/edit', [PostsController::class,'edit']);
 
+    Route::name('update_post_path')->put('/posts/update/{post}', [PostsController::class,'update']);
 
-    return view('Welcome', ['nombre' => 'ABI']);
-});
-/*
-Route::get('/hola/{nombre}', 'HolaController@hola'); 
-*/
-
-/*Route::get('/hola/{nombre}', function ($nombre) {
-    return "hola! {$nombre}";
-});*/
+    Route::name('delete_post_path')->delete('/posts/delete/{post}', [PostsController::class,'delete']);

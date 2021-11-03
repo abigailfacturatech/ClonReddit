@@ -5,11 +5,11 @@
 <div class="row">
 
             <div class="col-md-12">
-                <h2>Title</h2>
+                <h2>{{$post->title}}</h2>
 
-                <p>Description</p>
+                <p>{{$post->description}}</p>
 
-                <p>Posted 5 hours ago.</p>
+                <p>Post {{$post->created_at->diffForHumans()}}</p>
             </div>
         </div>
 
