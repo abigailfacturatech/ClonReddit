@@ -22,6 +22,12 @@ class CreatePostsTable extends Migration
 
             $table->string('url');
 
+            $table->string('user_id')->usingned(); //user_id
+
+
+
+
+
             $table->timestamps();
         });
     }

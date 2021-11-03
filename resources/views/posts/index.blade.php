@@ -1,6 +1,7 @@
 
 @extends('layouts.app')
 
+
 @section('content')
 
 
@@ -23,9 +24,9 @@
 
                         {{method_field('DELETE')}}
                         
-                        <div>
+                        
                             <button type="submit" class='btn btn-danger'>Delete</button>
-                        </div>
+                        
 
                     </form>
                     </small>   
