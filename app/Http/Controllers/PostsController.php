@@ -14,7 +14,7 @@ class PostsController extends Controller
     public function index()
     {               
                 //te muestra todos los datos del mas reciente al más antiguo
-        $posts =Post::orderBy('id','desc')->paginate(5); 
+        $posts = Post::orderBy('id','desc')->paginate(10); 
             
             return view('posts.index')->with(['posts'=> $posts]);
     }

@@ -44,6 +44,6 @@
     @endforeach
 
      
-        {{$posts->render()}}
+        {{$posts->render() }}
     
 @endsection()
