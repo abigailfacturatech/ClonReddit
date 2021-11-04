@@ -18,6 +18,7 @@
             <div class="col-md-12">
                 <h1> Reditt Clone
 <div class="container">
+    <!-- -->
                     <small class="pull-right">
                         <a href="{{ route('create_post_path',[PostsController::class, 'create']);}}">Create Post</a>
                     </small>

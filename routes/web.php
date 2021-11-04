@@ -8,7 +8,7 @@ use App\Http\Controllers\PostsController;
     
     
    */
-
+/* bla */
     Auth::routes();
 
     Route::group(['middleware'=> 'auth'], function(){
@@ -17,7 +17,7 @@ use App\Http\Controllers\PostsController;
 
 
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+        Route::name('post_path')->get('/posts/show/{post}', [PostsController::class, 'show']);
         Route::name('create_post_path')->get('/posts/{create}', [PostsController::class, 'create']);
 
         Route::name('store_post_path')->post('/posts', [PostsController::class, 'store']);
@@ -31,7 +31,8 @@ use App\Http\Controllers\PostsController;
         });
 
     Route::get('/', [PostsController::class, 'index']);
-
+    
     Route::name('posts_path')->get('/posts', [PostsController::class, 'index']);
     
-    Route::name('post_path')->get('/posts/{post}', [PostsController::class, 'show']);
+    
+   

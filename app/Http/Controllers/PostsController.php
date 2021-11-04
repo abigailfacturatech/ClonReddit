@@ -22,7 +22,7 @@ class PostsController extends Controller
     public function show(Post $post)
     {
 
-            return view('posts.show')->with(['post'=>$post]);
+            return view('posts.show')->with(['post'=> $post]);
     }
 
     public function create()
@@ -68,7 +68,7 @@ class PostsController extends Controller
 
              session()->flash('message', 'Post Updated');
             
-            return redirect()->route('post_path',['post'=> $post->id]);
+            return redirect()->route('posts_path',['post'=> $post->id]);
     }
 
     public function delete(Post $post)
