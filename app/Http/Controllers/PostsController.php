@@ -73,9 +73,14 @@ class PostsController extends Controller
 
     public function delete(Post $post)
     {
+            if($post->user_id != \Auth::user()->id)
+            {
+                    return redirect()->route('posts_path');
+            }        
+            
             //se utliza el metodo delete y se redirecciona en la pagina principal
            $post->delete();
-                //mensaje de eliminar
+           //mensaje de eliminar
             session()->flash('message', 'Post Created');
 
            return redirect()->route('posts_path');

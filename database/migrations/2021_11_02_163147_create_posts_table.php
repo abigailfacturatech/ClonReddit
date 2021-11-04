@@ -14,7 +14,8 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
+           
+            $table->increments('id');
 
             $table->string('title');
 
@@ -22,11 +23,7 @@ class CreatePostsTable extends Migration
 
             $table->string('url');
 
-            $table->string('user_id')->usingned(); //user_id
-
-
-
-
+            $table->integer('user_id')->unsigned(); //user_id
 
             $table->timestamps();
         });

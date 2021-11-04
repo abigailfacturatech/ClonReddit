@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\user;
 
 class UserFactory extends Factory
 {
@@ -23,6 +24,13 @@ class UserFactory extends Factory
         ];
     }
 
+    public function definitionB(Post $var = null)
+    {
+        # code...
+    }  
+    
+        
+    
     /**
      * Indicate that the model's email address should be unverified.
      *
@@ -33,6 +41,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'email_verified_at' => null,
+
             ];
         });
     }
