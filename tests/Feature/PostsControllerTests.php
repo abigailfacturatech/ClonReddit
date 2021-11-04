@@ -30,7 +30,7 @@ class PostsControllerTests extends TestCase
         }
     }
 
-    public function a_reqgistered_user_can_see_all_the_posts()
+    public function a_registered_user_can_see_all_the_posts()
     {
         
         $post = factory(\App\Models\Post::class)->create();
@@ -58,7 +58,9 @@ class PostsControllerTests extends TestCase
         foreach ($posts as $post){
 
             $response->assertSee($post-title);
-            $response->assertSee($post->user->name);
+            $response->assertSee(
+                e($post->user->name)
+            );
 
         
         }
@@ -94,11 +96,74 @@ class PostsControllerTests extends TestCase
        $this->assertSame($user->id, $post->user_id);
     }
 
-    public function only_author_can_edit_post()
+    public function only_author_cannot_edit_post()
     {
         $user = factory(\App\User::class)->create();
+        $post = factory(\App\User::class)->create(['user_id'=> $user->id]);
 
         $this->userSingIn($user);
+
+
+        $response = $this->put(remote('uptade_post_path',['post' => $post->id]),[
+
+            'title' => 'editado',
+
+            'description' => 'editado',
+            
+            'url' => 'http:google.com',
+        ]);
+
+            $post = \App\Post::firts();
+
+            $this->assertNotSame($post->title,'editado');
+            $this->assertNotSame($post->description,'editado');
+            $this->assertNotSame($post->url,'http:google.com');
+            
+
+        
     }
+    public function only_author_cannot_delete_post()
+    {
+
+        $user = factory(\App\User::class)->create();
+        $post = factory(\App\User::class)->create(['user_id'=> $user->id]);
+
+
+         $this->userSingIn($user);
+
+
+         $this->delete(route('delete_post_path', ['post'=> $post->id]));
+
+         $response->asserDontSee($post->title);
+
+         $post = $post-fresh();
+
+         $this->assertNull($post);
+
+
+    }
+    public function if_not_author_cannot_delete_post()
+    {
+
+        $user = factory(\App\User::class)->create();
+        $post = factory(\App\User::class)->create();
+
+
+         $this->userSingIn($user);
+
+
+         $this->delete(route('delete_post_path', ['post'=> $post->id]));
+
+         $response->asserSee($post->title);
+
+         $post = $post-fresh();
+         
+         $this->assertNotNull($post);
+
+
+    }
+   
+
+   
 
 }
