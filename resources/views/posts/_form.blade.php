@@ -7,11 +7,11 @@
     sino entonces creamos uno nuevo -->  
   @if( $post->exists )
    <!-- method update-->  
- 
+   
     <form action="{{ route('update_post_path', ['post' => $post->id]) }}" method="POST">
-
+          {{ csrf_field()}}
           {{ method_field('PUT') }}
-
+          
     @else      
         <!-- method edit-->  
     <form action="{{ route('store_post_path') }}" method="POST">

@@ -54,6 +54,11 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
+        if($post->user_id != \Auth::user()->id)
+        {
+                return redirect()->route('posts_path');
+        }   
+        
             return view('posts.edit')->with(['post'=> $post]);
     }
 
@@ -68,7 +73,7 @@ class PostsController extends Controller
 
              session()->flash('message', 'Post Updated');
             
-            return redirect()->route('posts_path',['post'=> $post->id]);
+            return redirect()->route('post_path',['post' => $post->id]);
     }
 
     public function delete(Post $post)

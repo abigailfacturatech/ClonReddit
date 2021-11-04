@@ -14,6 +14,9 @@
             
                 <h2> <a href="{{ route('post_path', ['post' => $post->id])}}"> 
                 {{ $post ['title'] }}</a>
+
+                @if(Auth::check() && $post->user_id == Auth::user()->id)
+               
                 </h2>
                 <!-- -->
                     <small class="pull-right">
@@ -29,17 +32,19 @@
                         
                             <button type="submit" class='btn btn-danger'>Delete</button>
                         
-
+                           
                     </form>
-                    </small>   
+                    
+                    </small>  
+                   
                     
                     
                 
                            
                     <p> Posted {{ $post->created_at->diffForHumans() }}</p> 
-             
+                    @endif
             </div>
-        
+            
         </div>
 
         <hr>
