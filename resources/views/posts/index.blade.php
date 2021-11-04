@@ -12,29 +12,32 @@
       
             <div class="col-md-12">
             
-                <h2> <a href="{{ route('post_path', ['post' => $post->id])}}">{{ $post ['title'] }}</a>
-                    
+                <h2> <a href="{{ route('post_show_path', ['id' => $post->id])}}">{{ $post ['title'] }}</a>
+                   
+                        
+                    @if($post->wasCreatedBy(Auth::user()))
+
                     <small class="pull-right">
 
-                        <a href="{{ route('edit_post_path', ['post' => $post->id]) }}" class="btn btn-info">Edit</a>
-                        
-                        <form action="{{ route('delete_post_path', ['post' => $post->id])}}" method="POST">
-                        
-                        {{ csrf_field() }}
+                            <a href="{{ route('edit_post_path', ['post' => $post->id]) }}" class="btn btn-info">Edit</a>
+                            
+                            <form action="{{ route('delete_post_path', ['post' => $post->id])}}" method="POST">
+                            
+                            {{ csrf_field() }}
 
-                        {{method_field('DELETE')}}
-                        
-                        
-                            <button type="submit" class='btn btn-danger'>Delete</button>
-                        
+                            {{method_field('DELETE')}}
+                            
+                            
+                                <button type="submit" class='btn btn-danger'>Delete</button>
+                            
 
-                    </form>
-                    </small>   
-                    
+                            </form>
+                        </small>   
+                    @endif
                     
                 </h2>
                            
-                    <p> Posted {{ $post->created_at->diffForHumans() }}</p> 
+                    <p> Posted {{ $post->created_at->diffForHumans() }} by <b>{{$post->user->name}}</b></p> 
              
             </div>
         

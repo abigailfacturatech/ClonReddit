@@ -20,32 +20,48 @@
         
         {{ csrf_field()}}
         
-        
+       
+       @if( $post->exists )
           <!-- title field-->    
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" name="title" class="form-control" value="{{ $post->title or old('title') }}" />
+      <input type="text" name="title" class="form-control" value="{{ $post->title  }}" />
     </div>
+        @else  
+       <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" name="title" class="form-control" value="{{ old('description')  }}" />
+      </div>
+        @endif 
+      @if( $post->exists )
+         <!-- Descriotion Input-->   
+      <div class="form-group">
+        <label for="" class="form-label">Description:</label>
+        <textarea rows="5" name="description" class="form-control"/>{{ $post->description  }}</textarea>
+      </div>
+      @else  
 
-        <!-- Descriotion Input-->   
-
-   <div class="form-group">
-     <label for="" class="form-label">Description:</label>
-     <textarea rows="5" name="description" class="form-control"/>{{ $post->description or old('description') }}</textarea>
-   </div>
-
+      <div class="form-group">
+        <label for="" class="form-label">Description:</label>
+        <textarea rows="5" name="description" class="form-control"/>{{old('description') }}</textarea>
+      </div>
+      @endif
         <!-- url field--> 
-    
-   <div class="form-group">
-     <label for="" >Url:</label>
-     <input type="text" class="form-control" name="url" value="{{ $post->url or old('url') }}"/>
-   </div>
-
+     @if( $post->exists )
+      <div class="form-group">
+        <label for="" >Url:</label>
+        <input type="text" class="form-control" name="url" value="{{ $post->url  }}"/>
+      </div>
+   @else  
+      <div class="form-group">
+        <label for="" >Url:</label>
+        <input type="text" class="form-control" name="url" value="{{  old('url') }}"/>
+      </div>
+   @endif
 
    <div class="form-group">
         <button type="submit" class="btn btn-primary">Save post</button>
     </div> 
 
-    </form>   
-
+    </form>    
 @endsection

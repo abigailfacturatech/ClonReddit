@@ -43,6 +43,8 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+       
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
@@ -77,6 +79,17 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
+         'testing' => [
+            'driver' => 'pgsql',
+            'database' => ':memory:',
+            'prefix' => '',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+            
+        ], 
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

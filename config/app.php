@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Reddit Clone'),
+    'name' => env('APP_NAME', 'Reddit Clones'),
 
     /*
     |--------------------------------------------------------------------------
@@ -165,6 +165,8 @@ return [
         /*
          * Package Service Providers...
          */
+        
+         Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...

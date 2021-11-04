@@ -14,15 +14,15 @@ class PostsController extends Controller
     public function index()
     {               
                 //te muestra todos los datos del mas reciente al más antiguo
-        $posts = Post::orderBy('id','desc')->paginate(10); 
+        $posts = Post::with('user')->orderBy('id','desc')->paginate(10); 
             
             return view('posts.index')->with(['posts'=> $posts]);
     }
     
-    public function show(Post $post)
+    public function show(Post $id)
     {
 
-            return view('posts.show')->with(['post'=>$post]);
+            return view('posts.show')->with(['post'=>$id]);
     }
 
     public function create()
@@ -49,11 +49,16 @@ class PostsController extends Controller
 
                 session()->flash('message', 'Post Created');
 
-            return redirect()->route('posts_path');
+            return redirect()->route('posts_index_path');
     }
 
     public function edit(Post $post)
     {
+             if($post->user_id != \Auth::user()->id)
+            {
+                    return redirect()->route('posts_index_path');
+            }  
+            
             return view('posts.edit')->with(['post'=> $post]);
     }
 
@@ -68,14 +73,15 @@ class PostsController extends Controller
 
              session()->flash('message', 'Post Updated');
             
-            return redirect()->route('post_path',['post'=> $post->id]);
+            return redirect()->route('posts_index_path',['post'=> $post->id]);
     }
 
     public function delete(Post $post)
     {
+            
             if($post->user_id != \Auth::user()->id)
             {
-                    return redirect()->route('posts_path');
+                    return redirect()->route('posts_index_path');
             }        
             
             //se utliza el metodo delete y se redirecciona en la pagina principal
@@ -83,7 +89,7 @@ class PostsController extends Controller
            //mensaje de eliminar
             session()->flash('message', 'Post Created');
 
-           return redirect()->route('posts_path');
+           return redirect()->route('posts_index_path');
     }
 
 }
