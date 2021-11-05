@@ -165,9 +165,13 @@ return [
         /*
          * Package Service Providers...
          */
+<<<<<<< HEAD
         
          Barryvdh\Debugbar\ServiceProvider::class,
 
+=======
+        Barryvdh\Debugbar\ServiceProvider::class,
+>>>>>>> f67d49eda73c055859f8b0d75b3f74abc1a7c2f8
         /*
          * Application Service Providers...
          */
