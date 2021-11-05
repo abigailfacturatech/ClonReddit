@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostsCommentsController;
 
 Auth::routes();
 
@@ -19,7 +20,10 @@ Auth::routes();
 
         Route::name('delete_post_path')->delete('/posts/delete/{post}', [PostsController::class,'delete']);
 
+        Route::name('create_comment_path')->post('/posts/{post}/comments',[PostsCommentsController::class,'create']);
     });
+
+   
 
     Route::get('/', [PostsController::class, 'index']);
 
