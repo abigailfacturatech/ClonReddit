@@ -24,6 +24,16 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function votes()
+    {
+       return $this->hasMany(PostVote::class); 
+    }
+
     public function wasCreatedBy($user)
     {
         if(is_null($user) ) {
@@ -34,6 +44,11 @@ class Post extends Model
         return $this->user_id === $user->id;
     }
 
+    public function totalVotes($value='')
+    {
+        return $this->votes()->sum('vote');
+    }
 
+   
     
 }

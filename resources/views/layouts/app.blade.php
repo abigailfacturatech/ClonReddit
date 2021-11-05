@@ -11,7 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+<!-- resources/views/welcome.blade.php -->
+    <script src="{{ mix('/js/app.js') }}"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -31,8 +32,8 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    
-                    
+
+
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                             <li><a href="{{route('create_post_path')}}">Create Post</a></li>
@@ -65,8 +66,8 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                        
-                                   
+
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -79,7 +80,9 @@
         </nav>
 
         <main class="py-4">
-            
+
+
+
             <div class="container">
 
 
@@ -89,7 +92,7 @@
 
                  @yield('content')
 
-            </div>     
+            </div>
         </main>
     </div>
 </body>

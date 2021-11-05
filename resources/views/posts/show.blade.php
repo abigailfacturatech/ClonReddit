@@ -27,8 +27,8 @@
                
                
                 <div class="form-group">
-                    <label for="coment"></label>
-                    <textarea name="coment" id="" cols="60" rows="5"></textarea>
+                    <label for="comment"></label>
+                    <textarea name="comment" id="" cols="60" rows="5"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Post Comment</button>
@@ -37,5 +37,25 @@
             @endif
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            @foreach ($post->comments as $comment)
+                
+            <div class="row">
+                <div class="col-md-12" >
+
+                    <div class="row">
+                        
+                            {{$comment->text}} -{{$comment->user->name}} {{$comment->created_at->diffForHumans()}}
+                    </div>
+
+                </div>
+            </div>
+
+            @endforeach
+        </div>
+    </div>     
 @endsection
 

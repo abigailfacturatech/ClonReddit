@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-
+use App\Models\PostVote;
 class PostTest extends TestCase
 {
     /**
@@ -43,6 +43,44 @@ class PostTest extends TestCase
 
     
       $this->assertFalse($postByAuthor);
+    }
+
+    public function is_calculates_total_votes()
+    {
+      
+      $post=factory(\App\Models\Post::class)->create();
+
+      PostVote::create([
+        
+        'post_id' =>$post->id,
+
+        'user_id' =>1,
+
+        'vote' =>1,
+        ]);
+
+      PostVote::create([
+        
+        'post_id' =>$post->id,
+
+        'user_id' =>2,
+
+        'vote' =>1,
+        ]);  
+
+      PostVote::create([
+        
+        'post_id' =>$post->id,
+
+        'user_id' =>3,
+
+        'vote' =>1,
+        ]);  
+
+        $total = $post->totalVotes();
+
+      $this->assertEquals($total,-3);  
+
     }
 
 }
