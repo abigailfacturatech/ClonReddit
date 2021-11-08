@@ -1,8 +1,10 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\PostVotesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsCommentsController;
+use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
@@ -20,7 +22,8 @@ Auth::routes();
 
         Route::name('delete_post_path')->delete('/posts/delete/{post}', [PostsController::class,'delete']);
 
-        Route::name('vote_post_path')->delete('/posts/vote/{post}', [PostsVoteController::class,'delete']);
+
+        Route::name('vote_post_path')->post('/posts/vote/{id}', [PostVotesController::class, 'store']);
 
         Route::name('create_comment_path')->post('/posts/{post}/comments',[PostsCommentsController::class,'create']);
     });

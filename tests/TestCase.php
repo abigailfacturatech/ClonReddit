@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -11,7 +12,7 @@ abstract class TestCase extends BaseTestCase
 
     public function userSignIn($user)
         {
-            \Auth::loginUsingId($user->id);
+            Auth::loginUsingId($user->id);
         }
 }
 

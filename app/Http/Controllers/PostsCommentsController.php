@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsCommentsController extends Controller
 {
@@ -13,7 +14,7 @@ class PostsCommentsController extends Controller
             'comment' => 'required'
         ]);
 
-        
+
         //persistir el ario
         $comment = new Comment;
 
@@ -21,14 +22,14 @@ class PostsCommentsController extends Controller
 
         $comment->post_id = $postId;
 
-        $comment->user_id = \Auth::user()->id;
+        $comment->user_id = Auth::user()->id;
 
         $comment->save();
 
-        // //redireccionar a la publicacion    
+        // //redireccionar a la publicacion
 
         return redirect()->route('post_show_path', ['id'=>$postId]);
-        
+
 
     }
 

@@ -9,7 +9,15 @@ class PostVote extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'post_id', 'vote'];
+    protected $table = 'post_votes';
+
+    // protected $primaryKey = 'post_id, user_id';
+
+    protected $primaryKey = null;
+
+    public $incrementing = false;
+
+    protected $fillable = ['post_id','user_id'];
 
     public function post()
     {

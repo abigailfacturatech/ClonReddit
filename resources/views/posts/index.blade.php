@@ -9,11 +9,16 @@
     @foreach($posts as $post)
 
         <div class="row">
+            <div class="col-md-1">
                 <post-vote
-                :current-votes="{{ $post->totalVotes() }}"
-                :user-vote="1">
+                :is-authenticated="{!! json_encode(Auth::user() !== null) !!}"
+                :post-id="{{ $post->id }}"
+                :current-votes=" {{ $post->totalVotes() }}"
+                :user-vote="{{ $post->userVote(Auth::user()) }}"
+               >
                 </post-vote>
-            <div class="col-md-12">
+            </div>
+            <div class="col-md-11">
 
 
                 <h2>

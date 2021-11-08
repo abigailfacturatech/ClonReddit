@@ -19,7 +19,7 @@ class CreatePostsVotesTable extends Migration
 
             $table->integer('user_id')->unsigned();
 
-            $table->integer('vote');
+            $table->smallInteger('vote');
 
             $table->primary(['post_id', 'user_id']);
 

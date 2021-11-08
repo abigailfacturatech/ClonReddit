@@ -1,22 +1,20 @@
 <template>
-  <div class="form-group">
-   <div class="col-md-1">
+
 
                     <div class="btn-group-vertical">
 
-                        <btton class="btn">
-                            <span class="btn btn-outline-primary" @click="voteUp" :class="{'btn-info':didVoteUp}">+</span>
+                        <btton class="btn" >
+                            <span class="btn btn-outline-primary" @click="voteUp" :class="{'btn-info': didVoteUp}" :disabled="!isAuthenticated" >+</span>
                         </btton>
 
-                        <btton class="btn">{{ totalVotes }}</btton>
+                        <btton class="btn">{{  totalVotes }} </btton>
 
-                        <btton class="btn">
-                            <span class="btn btn-outline-primary" @click="voteDon" :class="{'btn-info':didVoteDown}">-</span>
+                        <btton class="btn" >
+                            <span class="btn btn-outline-primary" @click="voteDown" :class="{'btn-info': didVoteDown}" :disabled="!isAuthenticated" >-</span>
                         </btton>
 
                     </div>
-                </div>
-</div>
+
 </template>
 
 <script>
@@ -27,73 +25,95 @@
 
 export default{
 
+
     props:{
+        isAuthenticated:{
+            type: Boolean,
+        },
+        postId: {
+            type: Number,
+        },
         currentVotes:{
+            type:Number,
+            default:NO_VOTE
+
+    },
+    userVote:{
             type:Number,
             default:NO_VOTE
         }
     },
 
-    userVote:{
-        type:Number,
-        default:NO_VOTE
-    }
-,
-
-
     data(){
        return{
 
-           internalUserVote:0
+           internalUserVote:VOTE_DOWN,
+
+            internalCurrentVotes: 0,
 
        }
     },
 
-    Computed:{
-        didVoteUp(){
+    computed:{
+         didVoteUp(){
 
-            return this.internalUserVote===VOTE_UP;
-
-        },
-
-        didVoteDown(){
-
-            return this.internalUserVote===VOTE_DOWN;
-
-        },
-        totalVotes(){
-            return this.currentVotes + internalUserVote;
-        }
-
-    },
-
-
-     methods: {
-
-         voteUp(){
-
-            this.vote(VOTE_UP);
+             return this.internalUserVote===VOTE_UP;
 
          },
 
-        voteDon(){
-            this.vote(VOTE_DOWN);
-        },
+         didVoteDown(){
 
+             return this.internalUserVote===VOTE_DOWN;
+
+         },
+         totalVotes(){
+
+             return this.internalCurrentVotes + this.internalUserVote;
+         }
+
+     },
+
+        methods: {
+
+         voteUp(){
+
+           this.vote(1);
+         console.log('vote up');
+     },
+        voteDown(){
+
+            this.vote(-1);
+            console.log('vote down');
+
+    },
         vote(vote){
 
-            if(this.internalUserVote ===vote){
+            if(!this.isAuthenticated){
+                return;
+            }
+            if(this.internalUserVote === vote){
 
-                    this.internalUserVote =NO_VOTE;
+                this.internalUserVote =NO_VOTE;
 
             }else{
-                 this.internalUserVote =vote;
-                }
-              }
-            },
 
-    mounte(){
+                this.internalUserVote=vote;
+            }
+
+            axios.post(`/posts/vote/${this.postId}`,
+                        {vote: this.internalUserVote})
+
+            .then((response)=> {
+
+            })
+            .catch(err => {
+
+            });
+        }
+    },
+    mounted(){
         this.internalUserVote=this.userVote;
+        this.internalCurrentVotes = this.currentVotes - this.internalUserVote;
     }
 
 }

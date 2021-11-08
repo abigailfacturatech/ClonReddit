@@ -2084,28 +2084,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 var VOTE_UP = 1;
 var VOTE_DOWN = -1;
 var NO_VOTE = 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    postId: {
+      type: Number
+    },
     currentVotes: {
+      type: Number,
+      "default": NO_VOTE
+    },
+    userVote: {
       type: Number,
       "default": NO_VOTE
     }
   },
-  userVote: {
-    type: Number,
-    "default": NO_VOTE
-  },
   data: function data() {
     return {
-      internalUserVote: 0
+      internalUserVote: VOTE_DOWN,
+      internalCurrentVotes: 0
     };
   },
-  Computed: {
+  computed: {
     didVoteUp: function didVoteUp() {
       return this.internalUserVote === VOTE_UP;
     },
@@ -2113,15 +2115,17 @@ var NO_VOTE = 0;
       return this.internalUserVote === VOTE_DOWN;
     },
     totalVotes: function totalVotes() {
-      return this.currentVotes + internalUserVote;
+      return this.internalCurrentVotes + this.internalUserVote;
     }
   },
   methods: {
     voteUp: function voteUp() {
-      this.vote(VOTE_UP);
+      this.vote(1);
+      console.log('vote up');
     },
-    voteDon: function voteDon() {
-      this.vote(VOTE_DOWN);
+    voteDown: function voteDown() {
+      this.vote(-1);
+      console.log('vote down');
     },
     vote: function vote(_vote) {
       if (this.internalUserVote === _vote) {
@@ -2129,10 +2133,15 @@ var NO_VOTE = 0;
       } else {
         this.internalUserVote = _vote;
       }
+
+      axios.post("/posts/vote/".concat(this.postId), {
+        vote: this.internalUserVote
+      }).then(function (response) {})["catch"](function (err) {});
     }
   },
-  mounte: function mounte() {
+  mounted: function mounted() {
     this.internalUserVote = this.userVote;
+    this.internalCurrentVotes = this.currentVotes - this.internalUserVote;
   }
 });
 
@@ -37615,42 +37624,40 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group" }, [
-    _c("div", { staticClass: "col-md-1" }, [
-      _c(
-        "div",
-        { staticClass: "btn-group-vertical" },
-        [
-          _c("btton", { staticClass: "btn" }, [
-            _c(
-              "span",
-              {
-                staticClass: "btn btn-outline-primary",
-                class: { "btn-info": _vm.didVoteUp },
-                on: { click: _vm.voteUp },
-              },
-              [_vm._v("+")]
-            ),
-          ]),
-          _vm._v(" "),
-          _c("btton", { staticClass: "btn" }, [_vm._v(_vm._s(_vm.totalVotes))]),
-          _vm._v(" "),
-          _c("btton", { staticClass: "btn" }, [
-            _c(
-              "span",
-              {
-                staticClass: "btn btn-outline-primary",
-                class: { "btn-info": _vm.didVoteDown },
-                on: { click: _vm.voteDon },
-              },
-              [_vm._v("-")]
-            ),
-          ]),
-        ],
-        1
-      ),
-    ]),
-  ])
+  return _c(
+    "div",
+    { staticClass: "btn-group-vertical" },
+    [
+      _c("btton", { staticClass: "btn" }, [
+        _c(
+          "span",
+          {
+            staticClass: "btn btn-outline-primary",
+            class: { "btn-info": _vm.didVoteUp },
+            on: { click: _vm.voteUp },
+          },
+          [_vm._v("+")]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("btton", { staticClass: "btn" }, [
+        _vm._v(_vm._s(_vm.totalVotes) + " "),
+      ]),
+      _vm._v(" "),
+      _c("btton", { staticClass: "btn" }, [
+        _c(
+          "span",
+          {
+            staticClass: "btn btn-outline-primary",
+            class: { "btn-info": _vm.didVoteDown },
+            on: { click: _vm.voteDown },
+          },
+          [_vm._v("-")]
+        ),
+      ]),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
