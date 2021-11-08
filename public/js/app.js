@@ -2089,6 +2089,9 @@ var VOTE_DOWN = -1;
 var NO_VOTE = 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    isAuthenticated: {
+      type: Boolean
+    },
     postId: {
       type: Number
     },
@@ -2128,6 +2131,10 @@ var NO_VOTE = 0;
       console.log('vote down');
     },
     vote: function vote(_vote) {
+      if (!this.isAuthenticated) {
+        return;
+      }
+
       if (this.internalUserVote === _vote) {
         this.internalUserVote = NO_VOTE;
       } else {
@@ -37634,6 +37641,7 @@ var render = function () {
           {
             staticClass: "btn btn-outline-primary",
             class: { "btn-info": _vm.didVoteUp },
+            attrs: { disabled: !_vm.isAuthenticated },
             on: { click: _vm.voteUp },
           },
           [_vm._v("+")]
@@ -37650,6 +37658,7 @@ var render = function () {
           {
             staticClass: "btn btn-outline-primary",
             class: { "btn-info": _vm.didVoteDown },
+            attrs: { disabled: !_vm.isAuthenticated },
             on: { click: _vm.voteDown },
           },
           [_vm._v("-")]

@@ -20,42 +20,54 @@
             @if(Auth::guest())
 
                 Please log in to your account to comment
-            @else    
+            @else
         <form  action="{{ route('create_comment_path', ['post' => $post->id]) }}" method="post">
-               
+
         {!! csrf_field() !!}
-               
-               
+
+
                 <div class="form-group">
-                    <label for="comment"></label>
-                    <textarea name="comment" id="" cols="60" rows="5"></textarea>
+                    <label for="comment">Comment:</label>
+
+                    <textarea name="comment" class="form-control" cols="60" rows="5"></textarea>
+
                 </div>
+
                 <div class="form-group">
+
                     <button type="submit" class="btn btn-primary">Post Comment</button>
-                </div>    
+
+                </div>
+
             </form>
             @endif
+
         </div>
+
     </div>
 
     <div class="row">
+
         <div class="col-md-12">
 
-            @foreach ($post->comments as $comment)
-                
-            <div class="row">
-                <div class="col-md-12" >
+            @foreach($post->comments as $comment)
 
-                    <div class="row">
-                        
+            <div class="row">
+
+                <div class="col-md-12 "  >
+
+                    <div class="card card-body card bg-light ">
+
                             {{$comment->text}} -{{$comment->user->name}} {{$comment->created_at->diffForHumans()}}
                     </div>
-
                 </div>
+
             </div>
 
             @endforeach
         </div>
-    </div>     
-@endsection
+
+    </div>
+
+ @endsection
 

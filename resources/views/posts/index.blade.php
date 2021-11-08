@@ -18,7 +18,7 @@
                >
                 </post-vote>
             </div>
-            <div class="col-md-11">
+            <div class="col-md-11" >
 
 
                 <h2>
@@ -27,18 +27,18 @@
 
                     @if($post->wasCreatedBy(Auth::user()))
 
-                    <small class="pull-right">
+                    <small class="pull-right"  style="text-align: center">
 
-                            <a href="{{ route('edit_post_path', ['post' => $post->id]) }}" class="btn btn-info">Edit</a>
 
-                            <form action="{{ route('delete_post_path', ['post' => $post->id])}}" method="POST">
 
+                            <form action="{{ route('delete_post_path', ['post' => $post->id])}}" method="POST" >
+                            <div ><a href="{{ route('edit_post_path', ['post' => $post->id]) }}" class="btn btn-info">Edit</a></div>
                             {{ csrf_field() }}
 
                             {{method_field('DELETE')}}
 
 
-                                <button type="submit" class='btn btn-danger'>Delete</button>
+                               <div  >  <button type="submit" class='btn btn-danger'>Delete</button></div>
 
 
                             </form>

@@ -39,3 +39,7 @@ Auth::routes();
     Route::name('create_post_path')->get('/posts', [PostsController::class, 'create'])->middleware('auth');
 
 
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
